@@ -16,6 +16,7 @@ namespace Powers {
         MIDAS,
         FIRE_LORD,
         FORCE,
+        GHOST,
         END
     }
 }
@@ -35,6 +36,7 @@ string getPowerName(u8 pow) {
         case Powers::MIDAS: return "Midas";
         case Powers::FIRE_LORD: return "Fire Lord";
         case Powers::FORCE: return "The Force";
+        case Powers::GHOST: return "Ghost";
     }
     return "No Power";
 }
@@ -54,6 +56,7 @@ string getPowerScriptName(u8 pow) {
         case Powers::MIDAS: return "PowerMidas.as";
         case Powers::FIRE_LORD: return "PowerFireLord.as";
         case Powers::FORCE: return "PowerForce.as";
+        case Powers::GHOST: return "PowerGhost.as";
     }
     return "";
 }

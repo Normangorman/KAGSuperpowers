@@ -18,6 +18,11 @@ void onInit(CBlob@ this) {
     this.set_f32("force energy", FORCE_ENERGY_MAX);
     this.set_u32("last force end time", 0);
     this.set_bool("using force", false);
+    this.getCurrentScript().removeIfTag = "dead";
+}
+
+void onInit(CSprite@ this) {
+    this.getCurrentScript().removeIfTag = "dead";
 }
 
 void onTick(CBlob@ this) {

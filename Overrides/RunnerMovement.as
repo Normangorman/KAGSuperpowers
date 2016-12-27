@@ -7,6 +7,7 @@
 #include "PowersCommon.as";
 
 const float JUMP_MULTIPLIER = 2.0; // change in PowerBounce too
+const float SPEED_BOOST = 1.6;
 
 void onInit(CMovement@ this)
 {
@@ -603,7 +604,7 @@ void onTick(CMovement@ this)
 		const f32 turnaroundspeed = 1.3f;
 		const f32 normalspeed = 1.0f;
 		const f32 backwardsspeed = 0.8f;
-        const f32 walkBoost = hasPower(blob, Powers::SPEED) ? 2.0 : 1.0;
+        const f32 walkBoost = hasPower(blob, Powers::SPEED) ? SPEED_BOOST : 1.0;
 
 		if (right)
 		{

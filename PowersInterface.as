@@ -2,9 +2,37 @@
 
 const SColor color_blue(0xFF0000FF);
 const SColor color_red(0xFFFF0000);
+const int LINE_SPACING = 14;
+const int INTER_TEAM_SPACING = 12;
+
+const string[] TIPS = {
+    "The Bounce power makes you immune to fall damage.",
+    "The Drain power drains the health of enemies near you.",
+    "The Feather power makes you very light - try shield gliding!",
+    "The Fire Lord power burns things around you and enemies you touch.",
+    "To use The Force, aim your mouse at something and press E.",
+    "The Ghost power allows you to move through objects.",
+    "The Midas power makes you very rich!",
+    "The Monkey power allows you to climb walls and ceilings.",
+    "The Quick Attack power increases your slashing speed.",
+    "The Speed power makes you move much faster.",
+    "The Strength power makes your attacks stronger and allows you to damage stone blocks.",
+    "The Triple Jump power lets you jump 3 times.",
+    "The Vampirism power makes your attacks heals you."
+};
+
+string tip = "";
+
+void onInit(CRules@ this) {
+    ResetTip();
+}
+
+void onRestart(CRules@ this) {
+    ResetTip();
+}
 
 void onRender(CRules@ this) {
-    // Superpowers interface
+    DrawTips(this);
     CBlob@[] playerBlobs;
     getBlobsByTag("player", playerBlobs);
 
@@ -31,28 +59,40 @@ void onRender(CRules@ this) {
     Vec2f topLeftPtr(8,200);
     GUI::SetFont("menu");
     GUI::DrawText("SUPERPOWERS", topLeftPtr, color_white);
-    topLeftPtr.y += 20;
+    topLeftPtr.y += LINE_SPACING + INTER_TEAM_SPACING;
     for (int i=0; i < team0Blobs.length; i++) {
         CBlob@ blob = team0Blobs[i];
         DrawPlayerPowersText(blob, topLeftPtr);
-        topLeftPtr.y += 8;
+        topLeftPtr.y += LINE_SPACING;
     }
 
-    topLeftPtr.y += 12;
+    topLeftPtr.y += INTER_TEAM_SPACING;
 
     for (int i=0; i < team1Blobs.length; i++) {
         CBlob@ blob = team1Blobs[i];
         DrawPlayerPowersText(blob, topLeftPtr);
-        topLeftPtr.y += 8;
+        topLeftPtr.y += LINE_SPACING;
     }
 
-    topLeftPtr.y += 12;
+    topLeftPtr.y += INTER_TEAM_SPACING;
 
     for (int i=0; i < otherBlobs.length; i++) {
         CBlob@ blob = otherBlobs[i];
         DrawPlayerPowersText(blob, topLeftPtr);
-        topLeftPtr.y += 8;
+        topLeftPtr.y += LINE_SPACING;
     }
+}
+
+void ResetTip() {
+    tip = TIPS[XORRandom(TIPS.length)];
+}
+
+void DrawTips(CRules@ this) {
+    if (tip == "") return;
+    Vec2f topLeft(16,500);
+    Vec2f dims(180, 30);
+    GUI::SetFont("menu");
+    GUI::DrawText(tip, topLeft, topLeft+dims, color_black, false, false, true);
 }
 
 void InsertPlayerBlobIntoTeamArray(CBlob@ blob, CBlob@[]@ teamArray) {

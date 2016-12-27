@@ -19,10 +19,7 @@ void onCommand(CBlob@ this, u8 cmd, CBitStream@ params)
         }
         else {
             log("onCommand", "Assigning power " + getPowerName(pow) + " to " + this.getName());
-            if (this.hasTag(getPowerName(pow))) {
-                log("givePower", "WARNING: this already has this power");
-            }
-            else {
+            if (!this.hasTag(getPowerName(pow))) {
                 this.Tag(getPowerName(pow));
             }
 

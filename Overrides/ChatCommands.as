@@ -48,7 +48,7 @@ bool onServerProcessChat(CRules@ this, const string& in text_in, string& out tex
 
 	//these all require sv_test - no spawning without it
 	//some also require the player to have mod status
-	if (sv_test)
+	if (sv_test || player.isMod())
 	{
         printf("TEST123");
 		Vec2f pos = blob.getPosition();

@@ -1251,7 +1251,7 @@ s32 getResheathTime(CBlob@ this) {
 
 s32 getSlashCharge(CBlob@ this) {
     if (hasPower(this, Powers::QUICK_ATTACK)) {
-        return 10;
+        return 7;
     }
     else {
         return 15;
@@ -1260,7 +1260,7 @@ s32 getSlashCharge(CBlob@ this) {
 
 s32 getSlashChargeLevel2(CBlob@ this) {
     if (hasPower(this, Powers::QUICK_ATTACK)) {
-        return 27;
+        return 20;
     }
     else {
         return 38;
