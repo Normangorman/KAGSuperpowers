@@ -61,6 +61,26 @@ string getPowerScriptName(u8 pow) {
     return "";
 }
 
+string getPowerTip(u8 pow) {
+    switch(pow) {
+        case Powers::BOUNCE: return "The Bounce power makes you immune to fall damage.";
+        case Powers::STRENGTH: return "The Strength power makes your attacks stronger and allows you to damage stone blocks.";
+        case Powers::VAMPIRISM: return "The Vampirism power makes your attacks heals you.";
+        case Powers::DRAIN: return "The Drain power drains the health of enemies near you.";
+        case Powers::SPEED: return "The Speed power makes you move much faster.";
+        case Powers::QUICK_ATTACK: return "The Quick Attack power increases your slashing speed.";
+        case Powers::MOUNTAIN: return "The Mountain power makes you take 50% damage at the cost of extra weight.";
+        case Powers::FEATHER: return "The Feather power makes you very light - try shield gliding!";
+        case Powers::TRIPLE_JUMP: return "The Triple Jump power lets you jump 3 times.";
+        case Powers::MONKEY: return "The Monkey power allows you to climb walls and ceilings.";
+        case Powers::MIDAS: return "The Midas power makes you very rich!";
+        case Powers::FIRE_LORD: return "The Fire Lord power burns things around you and enemies you touch.";
+        case Powers::FORCE: return "To use The Force, aim your mouse at something and press E.";
+        case Powers::GHOST: return "The Ghost power allows you to move through objects.";
+    }
+    return "";
+}
+
 bool hasPower(CBlob@ blob, u8 pow) {
     return blob.hasTag(getPowerName(pow));
 }

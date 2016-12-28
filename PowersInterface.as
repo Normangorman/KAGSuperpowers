@@ -1,34 +1,17 @@
 #include "PowersCommon.as";
 
-const SColor color_blue(0xFF0000FF);
+const SColor color_blue(0xFF00FFFF);
 const SColor color_red(0xFFFF0000);
+const SColor color_yellow(0xFFFFFF00);
 const int LINE_SPACING = 14;
 const int INTER_TEAM_SPACING = 12;
 
-const string[] TIPS = {
-    "The Bounce power makes you immune to fall damage.",
-    "The Drain power drains the health of enemies near you.",
-    "The Feather power makes you very light - try shield gliding!",
-    "The Fire Lord power burns things around you and enemies you touch.",
-    "To use The Force, aim your mouse at something and press E.",
-    "The Ghost power allows you to move through objects.",
-    "The Midas power makes you very rich!",
-    "The Monkey power allows you to climb walls and ceilings.",
-    "The Quick Attack power increases your slashing speed.",
-    "The Speed power makes you move much faster.",
-    "The Strength power makes your attacks stronger and allows you to damage stone blocks.",
-    "The Triple Jump power lets you jump 3 times.",
-    "The Vampirism power makes your attacks heals you."
-};
-
 string tip = "";
 
-void onInit(CRules@ this) {
-    ResetTip();
-}
-
-void onRestart(CRules@ this) {
-    ResetTip();
+void onTick(CRules@ this) {
+    if (getMap().getTimeSinceStart() == 2 || tip == "") {
+        ResetTip();
+    }
 }
 
 void onRender(CRules@ this) {
@@ -84,7 +67,21 @@ void onRender(CRules@ this) {
 }
 
 void ResetTip() {
-    tip = TIPS[XORRandom(TIPS.length)];
+    if (getLocalPlayer() !is null && getLocalPlayer().getBlob() !is null) {
+        CBlob@ blob = getLocalPlayer().getBlob();
+        for (u8 pow=Powers::BEGIN+1; pow < Powers::END; pow++) {
+            if (hasPower(blob, pow)) {
+                log("Reset tip", "Using power tip: " + getPowerName(pow));
+                tip = getPowerTip(pow);
+                return;
+            }
+        }
+    }
+
+    // Use random tip if player bob doesn't exist or player has no power.
+    log("Reset tip", "Using random tip");
+    u8 pow = XORRandom(Powers::END-2)+1;
+    tip = getPowerTip(pow);
 }
 
 void DrawTips(CRules@ this) {
@@ -122,7 +119,8 @@ void DrawPlayerPowersText(CBlob@ blob, Vec2f topLeft) {
     }
 
     SColor textColor;
-    if (blob.getTeamNum() == 0) textColor = color_blue;
+    if (blob.getPlayer().isMyPlayer()) textColor = color_yellow;
+    else if (blob.getTeamNum() == 0) textColor = color_blue;
     else if (blob.getTeamNum() == 1) textColor = color_red;
     else textColor = color_white;
 
